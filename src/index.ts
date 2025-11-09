@@ -14,6 +14,13 @@ async function init() {
 
         app.use(cors());
 
+        app.get('/', (req, res) => {
+            res.send(200).json({
+                message: "Server is Running",
+                data: null
+            })
+        });
+
         app.use(express.json());
         app.use('/api', router);
 
