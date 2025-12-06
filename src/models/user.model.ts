@@ -5,6 +5,7 @@ import { renderMailHtml, sendEmail } from '../utils/mail/mail';
 import { CLIENT_HOST, EMAIL_SMTP_USER } from "../utils/env";
 
 export interface User {
+    fullname: string;
     username: string;
     email: string;
     password: string;
@@ -18,6 +19,7 @@ export interface User {
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema<User>({
+    fullname: { type: String, required: true },
     username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
@@ -44,6 +46,7 @@ UserSchema.post("save", async function(doc, next) {
         
 
         const contentMail = await renderMailHtml("registration-success.ejs", {
+            fullname: user.fullname,
             username: user.username,
             email: user.email,
             createdAt: user.createdAt,

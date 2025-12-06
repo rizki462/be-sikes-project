@@ -27,7 +27,7 @@ async function init() {
         docs(app);
 
         app.listen(PORT, () => {
-            console.log("Server is running on http://localhost:3000");
+            console.log(`Server is running on http://localhost:${PORT}`);
         });
     } catch (error) {
         console.log(error);
