@@ -30,6 +30,16 @@ const doc = {
             LoginRequest: {
                 identifier: "rizkidiego614@gmail.com",
                 password: "12345678"
+            },
+            RegisterRequest: {
+                fullname: "Rizki Diego",
+                username: "rizkidiego614",
+                email: "rizkidiego614@gmail.com",
+                password: "12345678",
+                confirmPassword: "12345678"
+            },
+            ActivationRequest: {
+                code: "abcdefg"
             }
         },
     },

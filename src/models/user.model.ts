@@ -20,7 +20,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema<User>({
     fullname: { type: String, required: true },
-    username: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, enum: ['admin', 'user'], default: 'user' },
@@ -35,6 +35,7 @@ const UserSchema = new Schema<User>({
 UserSchema.pre('save', function(next){
     const user = this;
     user.password = encrypt(user.password);
+    user.activationCode = encrypt(user.id);
     next();
 });
 
