@@ -31,6 +31,9 @@ const registerValidateSchema = Yup.object({
 
 export default {
     async register(req: Request, res: Response) {
+        /**
+        #swagger.tags = ['Auth']
+         */
         const { username, email, password, confirmPassword } = req.body as unknown as TRegister;
 
         try {
@@ -45,6 +48,7 @@ export default {
 
     async login(req: Request, res: Response) {
         /**
+         #swagger.tags = ['Auth']
          #swagger.requestBody = {
             required: true,
             schema: {
@@ -99,6 +103,7 @@ export default {
 
     async me(req: IReqUser, res: Response) {
         /**
+        #swagger.tags = ['Auth']
         #swagger.security = [{
             "bearerAuth": []
         }]
