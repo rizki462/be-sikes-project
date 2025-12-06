@@ -4,6 +4,7 @@ import { PORT } from "./utils/env";
 import cors from "cors";
 
 import db from "./utils/database";
+import docs from "./docs/route";
 
 async function init() {
     try {
@@ -23,6 +24,7 @@ async function init() {
 
         app.use(express.json());
         app.use('/api', router);
+        docs(app);
 
         app.listen(PORT, () => {
             console.log("Server is running on http://localhost:3000");
