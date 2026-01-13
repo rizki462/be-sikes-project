@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-import { boolean } from "yup";
 
 // Load environment variables
 dotenv.config();
