@@ -13,6 +13,14 @@ async function init() {
 
         const app = express();
 
+        // Cors Konfigurasi
+        const corsOptions = {
+            origin: ["http://localhost:3000", "https://be-sikes-project.vercel.app"],
+            methods: ["GET", "POST", "PUT", "DELETE"],
+            allowedHeaders: ["Content-Type", "Authorization"],
+            credentials: true
+        }
+
         app.use(cors());
 
         app.get('/', (req, res) => {
