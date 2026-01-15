@@ -51,7 +51,22 @@ export default {
         const { fullname, username, email, password, confirmPassword } = req.body as unknown as TRegister;
 
         try {
+            // Validasi Schema Yup
             await registerValidateSchema.validate({ fullname, username, email, password, confirmPassword });
+
+            // Validasi username dan email jika sudah terdaftar
+            const existingUser = await UserModel.findOne({ 
+                $or: [{ username }, { email }] 
+            });
+            if (existingUser) {
+                const field = existingUser.username === username ? "username" : "email";
+                return res.status(400).json({
+                    message: `${field} sudah terdaftar, silahkan gunakan yang lain`,
+                    data: null
+                });
+            };
+
+            // simpan user ke database
             const result = await UserModel.create({ fullname, username, email, password, role: 'user' });
             res.status(200).json({ message: "Pendaftaran Berhasil", data: result });
         } catch (error) {
@@ -92,7 +107,7 @@ export default {
 
             // Validasi status user
             if (!userByIdentifier.isActive) {
-                return res.status(400).json({
+                return res.status(403).json({
                     message: "User belum diaktifkan",
                     data: null
                 });
@@ -101,7 +116,7 @@ export default {
             // Validasi password
             const validatePassword: Boolean = encrypt(password) === userByIdentifier.password;
             if (!validatePassword) {
-                return res.status(400).json({
+                return res.status(401).json({
                     message: "Password salah",
                     data: null
                 });
