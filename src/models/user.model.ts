@@ -24,7 +24,7 @@ const UserSchema = new Schema<User>({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, enum: ['admin', 'user'], default: 'user' },
-    profilePicture: { type: String, default: 'user.jpg' }, // URL to profile picture
+    profilePicture: { type: String, default: '/images/dafault/user.png' }, // URL to profile picture
     isActive: { type: Boolean, default: false },
     activationCode: { type: Schema.Types.String },
 },
