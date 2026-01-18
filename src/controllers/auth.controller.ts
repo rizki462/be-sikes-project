@@ -26,7 +26,7 @@ export default {
             };
 
             // simpan user ke database
-            const result = await UserModel.create({ fullname, username, email, password, role: 'member' });
+            const result = await UserModel.create({ fullname, username, email, password, role: 'user' });
             res.status(200).json({ message: "Pendaftaran Berhasil", data: result });
         } catch (error) {
             const err = error as unknown as Error
