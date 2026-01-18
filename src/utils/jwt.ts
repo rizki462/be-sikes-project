@@ -13,7 +13,7 @@ export interface IUserToken extends Omit<
     | "username"
     | "profilePicture"
     > {
-        id?: Types.ObjectId
+        id?: Types.ObjectId;
     }
 
 export const generateToken = (user: IUserToken): string => {

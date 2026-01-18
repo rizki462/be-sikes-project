@@ -18,9 +18,6 @@
   "paths": {
     "/auth/register": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
         "description": "",
         "responses": {
           "200": {
@@ -60,9 +57,42 @@
     },
     "/auth/login": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "identifier": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/activation": {
+      "post": {
         "description": "",
         "responses": {
           "200": {
@@ -73,16 +103,15 @@
           }
         },
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "example": "any"
+                  }
+                }
               }
             }
           }
@@ -91,16 +120,10 @@
     },
     "/auth/me": {
       "get": {
-        "tags": [
-          "Auth"
-        ],
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "403": {
             "description": "Forbidden"
@@ -113,11 +136,110 @@
         ]
       }
     },
-    "/auth/activation": {
-      "post": {
-        "tags": [
-          "Auth"
+    "/auth/update-profile": {
+      "put": {
+        "description": "",
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullname": {
+                    "example": "any"
+                  },
+                  "profilePicture": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/update-password": {
+      "put": {
+        "description": "",
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "oldPassword": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  },
+                  "confirmPassword": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/media/upload-single": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "required": true,
+            "description": "File gambar yang akan diupload",
+            "schema": {
+              "type": "file"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/media/upload-multiple": {
+      "post": {
         "description": "",
         "responses": {
           "200": {
@@ -125,19 +247,50 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/media/remove": {
+      "delete": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ActivationRequest"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/ActivationRequest"
+                "type": "object",
+                "properties": {
+                  "fileUrl": {
+                    "example": "any"
+                  }
+                }
               }
             }
           }
@@ -165,9 +318,6 @@
             "type": "string",
             "example": "12345678"
           }
-        },
-        "xml": {
-          "name": "LoginRequest"
         }
       },
       "RegisterRequest": {
@@ -193,9 +343,6 @@
             "type": "string",
             "example": "12345678"
           }
-        },
-        "xml": {
-          "name": "RegisterRequest"
         }
       },
       "ActivationRequest": {
@@ -205,11 +352,43 @@
             "type": "string",
             "example": "abcdefg"
           }
-        },
-        "xml": {
-          "name": "ActivationRequest"
+        }
+      },
+      "UpdateProfileRequest": {
+        "type": "object",
+        "properties": {
+          "fullname": {
+            "type": "string",
+            "example": ""
+          },
+          "profilePicture": {
+            "type": "string",
+            "example": ""
+          }
+        }
+      },
+      "UpdatePasswordRequest": {
+        "type": "object",
+        "properties": {
+          "oldPassword": {
+            "type": "string",
+            "example": "12345678"
+          },
+          "password": {
+            "type": "string",
+            "example": "12345678"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "example": "12345678"
+          }
         }
       }
     }
-  }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
 }

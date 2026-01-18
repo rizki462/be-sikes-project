@@ -1,4 +1,3 @@
-import { version } from "mongoose";
 import swaggerAutogen from "swagger-autogen";
 
 const doc = {
@@ -7,15 +6,14 @@ const doc = {
         title: "Sistem Informasi Kesehatan Digital",
         description: "Sistem Informasi Kesehatan Digital Project",
     },
-
     servers: [
+        { url: "http://localhost:3000/api", description: "Local Server" },
+        { url: "https://be-sikes-project.vercel.app/api", description: "Deploy Server" },
+    ],
+    // TAMBAHKAN INI: Mengaktifkan security secara global
+    security: [
         {
-            url: "http://localhost:3000/api",
-            description: "Local Server"
-        },
-        {
-            url: "https://be-sikes-project.vercel.app/api",
-            description: "Deploy Server"
+            bearerAuth: [],
         },
     ],
     components: {
@@ -23,8 +21,8 @@ const doc = {
             bearerAuth: {
                 type: "http",
                 scheme: "bearer",
-                bearerFormat: "JWT"
-            }
+                bearerFormat: "JWT",
+            },
         },
         schemas: {
             LoginRequest: {
@@ -40,6 +38,15 @@ const doc = {
             },
             ActivationRequest: {
                 code: "abcdefg"
+            },
+            UpdateProfileRequest: {
+                fullname: "",
+                profilePicture: ""
+            },
+            UpdatePasswordRequest: {
+                oldPassword: "12345678",
+                password: "12345678",
+                confirmPassword: "12345678"
             }
         },
     },
