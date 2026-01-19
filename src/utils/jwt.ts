@@ -18,7 +18,7 @@ export interface IUserToken extends Omit<
 
 export const generateToken = (user: IUserToken): string => {
     const token = jwt.sign(user, SECRET, {
-        expiresIn: "1h",
+        expiresIn: "1d",
     });
 
     return token;
