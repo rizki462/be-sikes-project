@@ -5,6 +5,8 @@ import aclMiddleware from "../middlewares/acl.middleware";
 import mediaMiddleware from "../middlewares/media.middleware";
 import { ROLES } from "../utils/constant";
 import mediaControllers from "../controllers/media.controller";
+import uploadSingle from "../middlewares/media.middleware";
+import { screeningController } from "../controllers/screening.controller";
 
 const router = express.Router();
 
@@ -76,5 +78,15 @@ router.delete(
     mediaControllers.remove(req, res);
   }
 );
+
+// --- SCREENING IMAGE PROCESSING ---
+router.post("/screening/analyze", authMiddleware, (req: Request, res: Response) => {
+  screeningController.analyzeImage(req, res);
+});
+
+router.get("/screening/history", authMiddleware, (req: Request, res: Response) => {
+  /* #swagger.security = [{ "bearerAuth": [] }] */
+  screeningController.getHistory(req, res);
+});
 
 export default router;

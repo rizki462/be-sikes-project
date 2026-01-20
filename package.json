@@ -13,6 +13,10 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@tensorflow-models/coco-ssd": "^2.2.3",
+    "@tensorflow-models/mobilenet": "^2.1.1",
+    "@tensorflow/tfjs": "^4.22.0",
+    "@tensorflow/tfjs-backend-cpu": "^4.22.0",
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^6.1.1",
     "@types/ejs": "^3.1.5",
@@ -22,6 +26,8 @@
     "@types/multer": "^2.0.0",
     "@types/nodemailer": "^7.0.4",
     "@types/swagger-ui-express": "^4.1.6",
+    "axios": "^1.13.2",
+    "canvas": "^3.2.1",
     "cloudinary": "^2.8.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
@@ -39,5 +45,8 @@
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5",
     "yup": "^1.7.1"
+  },
+  "devDependencies": {
+    "@types/long": "^4.0.2"
   }
 }
